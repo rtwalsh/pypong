@@ -1,4 +1,5 @@
 import pygame
+from arena import *
 
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
@@ -11,13 +12,7 @@ HEIGHT = 600
 size = (WIDTH, HEIGHT)
 screen = pygame.display.set_mode(size)
 
-arena = {
-    "top": 100,
-    "bottom": HEIGHT - 50,
-    "left": 0,
-    "right": WIDTH,
-    "center": WIDTH // 2
-}
+arena = Arena(size)
 
 done = False
 clock = pygame.time.Clock()
@@ -31,17 +26,8 @@ while not done:
     if not done:
         screen.fill(BLACK)
 
-        pygame.draw.line(screen, WHITE, (arena["left"], arena["top"]), (arena["right"], arena["top"]))
-        pygame.draw.line(screen, WHITE, (arena["left"], arena["bottom"]), (arena["right"], arena["bottom"]))
-
-        pos = 100
-        on = False
-        while pos < arena["bottom"]:
-            if on:
-                pygame.draw.line(screen, WHITE, (arena["center"], pos), (arena["center"], pos + 10))
-            pos += 10
-            on = not on
-
+        arena.draw(screen)
+        
         pygame.display.flip()
         clock.tick(30)
 
