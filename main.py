@@ -29,10 +29,20 @@ while not done:
     if not done:
         screen.fill(BLACK)
 
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_UP]:
+            paddle2.set_moving(Paddle.UP)
+        elif keys[pygame.K_DOWN]:
+            paddle2.set_moving(Paddle.DOWN)
+        else:
+            paddle2.set_moving(0)
+
+        paddle2.update()
+
         arena.draw(screen)
         paddle1.draw(screen)
         paddle2.draw(screen)
-        
+
         pygame.display.flip()
         clock.tick(30)
 
