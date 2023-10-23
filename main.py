@@ -1,5 +1,6 @@
 import pygame
 from arena import *
+from paddle import *
 
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
@@ -13,6 +14,8 @@ size = (WIDTH, HEIGHT)
 screen = pygame.display.set_mode(size)
 
 arena = Arena(size)
+paddle1 = Paddle(20, (arena.top, arena.bottom))
+paddle2 = Paddle(arena.right - 20, (arena.top, arena.bottom))
 
 done = False
 clock = pygame.time.Clock()
@@ -27,6 +30,8 @@ while not done:
         screen.fill(BLACK)
 
         arena.draw(screen)
+        paddle1.draw(screen)
+        paddle2.draw(screen)
         
         pygame.display.flip()
         clock.tick(30)
