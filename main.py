@@ -30,21 +30,11 @@ while not done:
         screen.fill(BLACK)
 
         keys = pygame.key.get_pressed()
-        if keys[pygame.K_UP]:
-            paddle2.set_moving(Paddle.UP)
-        elif keys[pygame.K_DOWN]:
-            paddle2.set_moving(Paddle.DOWN)
-        else:
-            paddle2.set_moving(0)
-        paddle2.update()
-
-        if keys[pygame.K_w]:
-            paddle1.set_moving(Paddle.UP)
-        elif keys[pygame.K_s]:
-            paddle1.set_moving(Paddle.DOWN)
-        else:
-            paddle1.set_moving(0)
+        paddle1.check_for_movement(keys[pygame.K_w], keys[pygame.K_s])
         paddle1.update()
+
+        paddle2.check_for_movement(keys[pygame.K_UP], keys[pygame.K_DOWN])
+        paddle2.update()
 
         arena.draw(screen)
         paddle1.draw(screen)

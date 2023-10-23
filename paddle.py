@@ -20,8 +20,13 @@ class Paddle:
     def draw(self, screen):
         pygame.draw.rect(screen, self.WHITE, pygame.Rect((self.x, self.y), (self.PADDLE_WIDTH, self.PADDLE_HEIGHT)))
 
-    def set_moving(self, direction):
-        self.move_direction = direction
+    def check_for_movement(self, up, down):
+        if up:
+            self.move_direction = Paddle.UP
+        elif down:
+            self.move_direction = Paddle.DOWN
+        else:
+            self.move_direction = 0
 
     def update(self):
         self.y += self.move_direction * self.MOVE_INCREMENT
