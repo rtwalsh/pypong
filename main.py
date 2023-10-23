@@ -36,8 +36,15 @@ while not done:
             paddle2.set_moving(Paddle.DOWN)
         else:
             paddle2.set_moving(0)
-
         paddle2.update()
+
+        if keys[pygame.K_w]:
+            paddle1.set_moving(Paddle.UP)
+        elif keys[pygame.K_s]:
+            paddle1.set_moving(Paddle.DOWN)
+        else:
+            paddle1.set_moving(0)
+        paddle1.update()
 
         arena.draw(screen)
         paddle1.draw(screen)
