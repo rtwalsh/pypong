@@ -22,6 +22,10 @@ all_sprites.add(paddle1)
 all_sprites.add(paddle2)
 all_sprites.add(ball)
 
+paddles = pygame.sprite.Group()
+paddles.add(paddle1)
+paddles.add(paddle2)
+
 done = False
 clock = pygame.time.Clock()
 
@@ -36,12 +40,14 @@ while not done:
 
         keys = pygame.key.get_pressed()
         paddle1.check_for_movement(keys[pygame.K_w], keys[pygame.K_s])
-        paddle1.update()
-
         paddle2.check_for_movement(keys[pygame.K_UP], keys[pygame.K_DOWN])
-        paddle2.update()
 
-        ball.update()
+        all_sprites.update()
+
+        collisions = pygame.sprite.spritecollide(ball, paddles, False)
+        for collision in collisions:
+            ball.bounce(Ball.HORIZONTAL)
+            break
 
         arena.draw(screen)
         all_sprites.draw(screen)
