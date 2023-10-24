@@ -2,9 +2,7 @@ import pygame
 from arena import *
 from paddle import *
 from ball import *
-
-BLACK = (0, 0, 0)
-WHITE = (255, 255, 255)
+from colors import *
 
 pygame.init()
 
@@ -17,7 +15,7 @@ screen = pygame.display.set_mode(size)
 arena = Arena(size)
 paddle1 = Paddle(20, (arena.top, arena.bottom))
 paddle2 = Paddle(arena.right - 20, (arena.top, arena.bottom))
-ball = Ball(10, (arena.left, arena.right), (arena.top, arena.bottom))
+ball = Ball(5, (arena.left, arena.right), (arena.top, arena.bottom))
 game_objects = [arena, paddle1, paddle2, ball]
 
 done = False
@@ -30,7 +28,7 @@ while not done:
             done = True
 
     if not done:
-        screen.fill(BLACK)
+        screen.fill(Colors.BLACK)
 
         keys = pygame.key.get_pressed()
         paddle1.check_for_movement(keys[pygame.K_w], keys[pygame.K_s])
@@ -40,7 +38,7 @@ while not done:
         paddle2.update()
 
         ball.update()
-        
+
         for game_object in game_objects:
             game_object.draw(screen)
 

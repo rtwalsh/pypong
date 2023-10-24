@@ -1,8 +1,7 @@
 import pygame
+from colors import *
 
 class Arena:
-
-    WHITE = (255, 255, 255)
 
     def __init__(self, screen_size):
         self.top = 100
@@ -12,8 +11,8 @@ class Arena:
         self.center = (self.right - self.left) // 2
 
     def draw(self, screen):
-        pygame.draw.line(screen, self.WHITE, (self.left, self.top), (self.right, self.top))
-        pygame.draw.line(screen, self.WHITE, (self.left, self.bottom), (self.right, self.bottom))
+        pygame.draw.line(screen, Colors.WHITE, (self.left, self.top), (self.right, self.top))
+        pygame.draw.line(screen, Colors.WHITE, (self.left, self.bottom), (self.right, self.bottom))
 
         self.draw_net(screen)
 
@@ -22,6 +21,6 @@ class Arena:
         on = False
         while pos < self.bottom:
             if on:
-                pygame.draw.line(screen, self.WHITE, (self.center, pos), (self.center, pos + 10))
+                pygame.draw.line(screen, Colors.WHITE, (self.center, pos), (self.center, pos + 10))
             pos += 10
             on = not on
