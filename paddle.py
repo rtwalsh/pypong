@@ -1,24 +1,28 @@
 import pygame
 from colors import *
 
-class Paddle:
+class Paddle(pygame.sprite.Sprite):
 
     UP = -1
     DOWN = 1
     MOVE_INCREMENT = 2
 
-    PADDLE_WIDTH = 10
-    PADDLE_HEIGHT = 100
+    WIDTH = 10
+    HEIGHT = 100
 
     def __init__(self, x_pos, y_range):
-        self.x = x_pos - self.PADDLE_WIDTH // 2
+        super().__init__()
+
         self.min_y = y_range[0]
         self.max_y = y_range[1]
-        self.y = (self.max_y - self.min_y - self.PADDLE_HEIGHT) // 2 + self.min_y
         self.move_direction = 0
 
-    def draw(self, screen):
-        pygame.draw.rect(screen, Colors.WHITE, pygame.Rect((self.x, self.y), (self.PADDLE_WIDTH, self.PADDLE_HEIGHT)))
+        self.image = pygame.Surface((Paddle.WIDTH, Paddle.HEIGHT))
+        self.image.fill(Colors.WHITE)
+
+        self.rect = self.image.get_rect()
+        self.rect.x = x_pos - Paddle.WIDTH // 2
+        self.rect.y = (self.max_y - self.min_y - Paddle.HEIGHT) // 2 + self.min_y
 
     def check_for_movement(self, up, down):
         if up:
@@ -29,8 +33,8 @@ class Paddle:
             self.move_direction = 0
 
     def update(self):
-        self.y += self.move_direction * self.MOVE_INCREMENT
-        if self.y + self.PADDLE_HEIGHT > self.max_y:
-            self.y = self.max_y - self.PADDLE_HEIGHT
-        elif self.y < self.min_y:
-            self.y = self.min_y
+        self.rect.y += self.move_direction * self.MOVE_INCREMENT
+        if self.rect.y + Paddle.HEIGHT > self.max_y:
+            self.rect.y = self.max_y - Paddle.HEIGHT
+        elif self.rect.y < self.min_y:
+            self.rect.y = self.min_y

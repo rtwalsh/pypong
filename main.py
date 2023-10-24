@@ -16,7 +16,11 @@ arena = Arena(size)
 paddle1 = Paddle(20, (arena.top, arena.bottom))
 paddle2 = Paddle(arena.right - 20, (arena.top, arena.bottom))
 ball = Ball(5, (arena.left, arena.right), (arena.top, arena.bottom))
-game_objects = [arena, paddle1, paddle2, ball]
+game_objects = [arena, ball]
+
+all_sprites = pygame.sprite.Group()
+all_sprites.add(paddle1)
+all_sprites.add(paddle2)
 
 done = False
 clock = pygame.time.Clock()
@@ -41,6 +45,7 @@ while not done:
 
         for game_object in game_objects:
             game_object.draw(screen)
+        all_sprites.draw(screen)
 
         pygame.display.flip()
         clock.tick(30)
