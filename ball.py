@@ -3,7 +3,7 @@ import random
 import math
 from colors import *
 
-class Ball:
+class Ball(pygame.sprite.Sprite):
 
     MIN_ANGLE = -70
     MAX_ANGLE = -MIN_ANGLE
@@ -11,8 +11,9 @@ class Ball:
     VERTICAL = 1
 
     def __init__(self, size, x_range, y_range):
+        super().__init__()
         self.size = size
-        self.position = ((x_range[1] - x_range[0]) // 2 + x_range[0], (y_range[1] - y_range[0]) // 2 + y_range[0])
+        center = ((x_range[1] - x_range[0]) // 2 + x_range[0], (y_range[1] - y_range[0]) // 2 + y_range[0])
         self.bounds = (x_range, (y_range[0] + self.size, y_range[1] - self.size))
 
         angle = self.to_radians(random.randint(Ball.MIN_ANGLE, Ball.MAX_ANGLE) + random.choice([0, 180]))
@@ -20,17 +21,21 @@ class Ball:
         self.delta_y = math.sin(angle)
         self.speed = 5
 
-    def draw(self, screen):
-        pygame.draw.circle(screen, Colors.WHITE, self.position, self.size)
+        self.image = pygame.Surface((size * 2, size * 2))
+        self.image.fill(Colors.BLACK)
+        self.image.set_colorkey(Colors.BLACK)
+        self.rect = self.image.get_rect()
+        pygame.draw.circle(self.image, Colors.WHITE, (size, size), self.size)
+        self.rect.x = center[0] - size
+        self.rect.y = center[1] - size
 
     def update(self):
-        new_x = self.position[0] + self.speed * self.delta_x
-        new_y = self.position[1] + self.speed * self.delta_y
-        self.position = (new_x, new_y)
-        if new_x < self.bounds[0][0] or new_x > self.bounds[0][1]:
+        self.rect.x += self.speed * self.delta_x
+        self.rect.y += self.speed * self.delta_y
+        if self.rect.x < self.bounds[0][0] or self.rect.x + self.size > self.bounds[0][1]:
             self.bounce(Ball.HORIZONTAL)
 
-        if new_y < self.bounds[1][0] or new_y > self.bounds[1][1]:
+        if self.rect.y < self.bounds[1][0] or self.rect.y + self.size > self.bounds[1][1]:
             self.bounce(Ball.VERTICAL)
 
     def bounce(self, direction):
