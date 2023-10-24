@@ -1,6 +1,7 @@
 import pygame
 from arena import *
 from paddle import *
+from ball import *
 
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
@@ -16,7 +17,8 @@ screen = pygame.display.set_mode(size)
 arena = Arena(size)
 paddle1 = Paddle(20, (arena.top, arena.bottom))
 paddle2 = Paddle(arena.right - 20, (arena.top, arena.bottom))
-game_objects = [arena, paddle1, paddle2]
+ball = Ball(10, (arena.left, arena.right), (arena.top, arena.bottom))
+game_objects = [arena, paddle1, paddle2, ball]
 
 done = False
 clock = pygame.time.Clock()
@@ -37,6 +39,8 @@ while not done:
         paddle2.check_for_movement(keys[pygame.K_UP], keys[pygame.K_DOWN])
         paddle2.update()
 
+        ball.update()
+        
         for game_object in game_objects:
             game_object.draw(screen)
 
