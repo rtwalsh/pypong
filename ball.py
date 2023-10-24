@@ -7,7 +7,9 @@ class Ball:
 
     MIN_ANGLE = -70
     MAX_ANGLE = -MIN_ANGLE
-    
+    HORIZONTAL = 0
+    VERTICAL = 1
+
     def __init__(self, size, x_range, y_range):
         self.size = size
         self.position = ((x_range[1] - x_range[0]) // 2 + x_range[0], (y_range[1] - y_range[0]) // 2 + y_range[0])
@@ -26,9 +28,15 @@ class Ball:
         new_y = self.position[1] + self.speed * self.delta_y
         self.position = (new_x, new_y)
         if new_x < self.bounds[0][0] or new_x > self.bounds[0][1]:
-            self.delta_x = -self.delta_x
+            self.bounce(Ball.HORIZONTAL)
 
         if new_y < self.bounds[1][0] or new_y > self.bounds[1][1]:
+            self.bounce(Ball.VERTICAL)
+
+    def bounce(self, direction):
+        if direction == Ball.HORIZONTAL:
+            self.delta_x = -self.delta_x
+        elif direction == Ball.VERTICAL:
             self.delta_y = -self.delta_y
 
     def to_radians(self, degrees):
