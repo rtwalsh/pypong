@@ -35,9 +35,6 @@ class Ball(pygame.sprite.Sprite):
         if self.rect.x < self.bounds[0][0] or self.rect.x + self.size > self.bounds[0][1]:
             self.bounce(Ball.HORIZONTAL)
 
-        if self.rect.y < self.bounds[1][0] or self.rect.y + self.size > self.bounds[1][1]:
-            self.bounce(Ball.VERTICAL)
-
     def bounce(self, direction):
         if direction == Ball.HORIZONTAL:
             self.delta_x = -self.delta_x
