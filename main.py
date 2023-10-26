@@ -55,8 +55,6 @@ while not done:
         paddle1.check_for_movement(keys[pygame.K_w], keys[pygame.K_s])
         paddle2.check_for_movement(keys[pygame.K_UP], keys[pygame.K_DOWN])
 
-        all_sprites.update()
-
         collisions = pygame.sprite.spritecollide(ball, boundaries, False)
         for collision in collisions:
             ball.bounce(Ball.VERTICAL)
@@ -67,14 +65,7 @@ while not done:
             ball.bounce(Ball.HORIZONTAL)
             break
 
-        collisions = pygame.sprite.spritecollide(paddle1, boundaries, False)
-        for collision in collisions:
-            paddle1.stop_moving()
-
-        collisions = pygame.sprite.spritecollide(paddle2, boundaries, False)
-        for collision in collisions:
-            paddle2.stop_moving()
-            
+        all_sprites.update()
         all_sprites.draw(screen)
 
         pygame.display.flip()
