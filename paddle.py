@@ -30,7 +30,10 @@ class Paddle(pygame.sprite.Sprite):
         elif down:
             self.move_direction = Paddle.DOWN
         else:
-            self.move_direction = 0
+            self.stop_moving()
+
+    def stop_moving(self):
+        self.move_direction = 0
 
     def update(self):
         self.rect.y += self.move_direction * self.MOVE_INCREMENT

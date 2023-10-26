@@ -31,11 +31,9 @@ all_sprites.add(paddle1)
 all_sprites.add(paddle2)
 all_sprites.add(ball)
 
-obstacles = pygame.sprite.Group()
-obstacles.add(scoreboard)
-obstacles.add(bottom_panel)
-obstacles.add(paddle1)
-obstacles.add(paddle2)
+boundaries = pygame.sprite.Group()
+boundaries.add(scoreboard)
+boundaries.add(bottom_panel)
 
 paddles = pygame.sprite.Group()
 paddles.add(paddle1)
@@ -59,14 +57,24 @@ while not done:
 
         all_sprites.update()
 
-        collisions = pygame.sprite.spritecollide(ball, obstacles, False)
+        collisions = pygame.sprite.spritecollide(ball, boundaries, False)
         for collision in collisions:
-            if paddles.has(collision):
-                ball.bounce(Ball.HORIZONTAL)
-            else:
-                ball.bounce(Ball.VERTICAL)
+            ball.bounce(Ball.VERTICAL)
             break
 
+        collisions = pygame.sprite.spritecollide(ball, paddles, False)
+        for collision in collisions:
+            ball.bounce(Ball.HORIZONTAL)
+            break
+
+        collisions = pygame.sprite.spritecollide(paddle1, boundaries, False)
+        for collision in collisions:
+            paddle1.stop_moving()
+
+        collisions = pygame.sprite.spritecollide(paddle2, boundaries, False)
+        for collision in collisions:
+            paddle2.stop_moving()
+            
         all_sprites.draw(screen)
 
         pygame.display.flip()
