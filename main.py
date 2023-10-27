@@ -11,6 +11,7 @@ HEIGHT = 600
 
 size = (WIDTH, HEIGHT)
 screen = pygame.display.set_mode(size)
+pygame.display.set_caption("PyPong")
 
 scoreboard = Scoreboard(WIDTH, 100)
 bottom_panel = Panel(WIDTH, 50, HEIGHT - 50, Border.TOP)
@@ -55,10 +56,8 @@ while not done:
         paddle1.check_for_movement(keys[pygame.K_w], keys[pygame.K_s])
         paddle2.check_for_movement(keys[pygame.K_UP], keys[pygame.K_DOWN])
 
-        collisions = pygame.sprite.spritecollide(ball, boundaries, False)
-        for collision in collisions:
+        if pygame.sprite.spritecollideany(ball, boundaries) != None:
             ball.bounce(Ball.VERTICAL)
-            break
 
         collisions = pygame.sprite.spritecollide(ball, paddles, False)
         for collision in collisions:
