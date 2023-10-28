@@ -5,7 +5,7 @@ class Paddle(pygame.sprite.Sprite):
 
     UP = -1
     DOWN = 1
-    MOVE_INCREMENT = 2
+    MOVE_INCREMENT = 3
 
     WIDTH = 10
     HEIGHT = 100
