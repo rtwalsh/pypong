@@ -16,9 +16,9 @@ class Ball(pygame.sprite.Sprite):
         center = ((x_range[1] - x_range[0]) // 2 + x_range[0], (y_range[1] - y_range[0]) // 2 + y_range[0])
         self.bounds = (x_range, (y_range[0] + self.size, y_range[1] - self.size))
 
-        angle = self.to_radians(random.randint(Ball.MIN_ANGLE, Ball.MAX_ANGLE) + random.choice([0, 180]))
-        self.delta_x = math.cos(angle)
-        self.delta_y = math.sin(angle)
+        self.angle = self.to_radians(random.randint(Ball.MIN_ANGLE, Ball.MAX_ANGLE) + random.choice([0, 180]))
+        self.delta_x = math.cos(self.angle)
+        self.delta_y = math.sin(self.angle)
         self.speed = 5
 
         self.image = pygame.Surface((size * 2, size * 2))
@@ -38,8 +38,10 @@ class Ball(pygame.sprite.Sprite):
     def bounce(self, direction):
         if direction == Ball.HORIZONTAL:
             self.delta_x = -self.delta_x
+            self.delta_y += random.random() * 0.2 * random.choice([-1, 1])
         elif direction == Ball.VERTICAL:
             self.delta_y = -self.delta_y
+            self.delta_x += random.random() * 0.2 * random.choice([-1, 1])
 
     def to_radians(self, degrees):
         return degrees * math.pi / 180
