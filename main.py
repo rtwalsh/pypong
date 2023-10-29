@@ -3,6 +3,7 @@ from arena import *
 from paddle import *
 from ball import *
 from colors import *
+from scorekeeper import *
 
 pygame.init()
 
@@ -13,7 +14,8 @@ size = (WIDTH, HEIGHT)
 screen = pygame.display.set_mode(size)
 pygame.display.set_caption("PyPong")
 
-scoreboard = Scoreboard(WIDTH, 100)
+scorekeeper = Scorekeeper()
+scoreboard = Scoreboard(scorekeeper, WIDTH, 100)
 bottom_panel = Panel(WIDTH, 50, HEIGHT - 50, Border.TOP)
 
 arena_top = scoreboard.rect.height
@@ -22,7 +24,7 @@ arena_bottom = HEIGHT - bottom_panel.rect.height
 net = Net(arena_top, arena_bottom, WIDTH // 2)
 paddle1 = Paddle(20, (arena_top, arena_bottom))
 paddle2 = Paddle(WIDTH - 20, (arena_top, arena_bottom))
-ball = Ball(5, (0, WIDTH), (arena_top, arena_bottom))
+ball = Ball(scorekeeper, 5, (0, WIDTH), (arena_top, arena_bottom))
 
 all_sprites = pygame.sprite.Group()
 all_sprites.add(scoreboard)
@@ -69,5 +71,7 @@ while not done:
 
         pygame.display.flip()
         clock.tick(30)
+
+        done = scorekeeper.is_game_over()
 
 pygame.quit()

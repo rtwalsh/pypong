@@ -1,5 +1,6 @@
 import pygame
 from colors import *
+from scorekeeper import *
 
 class Net(pygame.sprite.Sprite):
     
@@ -51,15 +52,15 @@ class Scoreboard(Panel):
     NUMBER_STROKE_WIDTH = 10
     NUMBER_MARGIN = 50
 
-    def __init__(self, width, height):
+    def __init__(self, scorekeeper, width, height):
         super().__init__(width, height, 0, Border.BOTTOM)
 
         self.initialize_numbers()
-
+        self.scorekeeper = scorekeeper
 
     def update(self):
-        self.image.blit(self.numbers[1], (50, 20))
-        self.image.blit(self.numbers[9], (self.rect.width - 50 - 30, 20))
+        self.image.blit(self.numbers[self.scorekeeper.get_score(Scorekeeper.LEFT_PLAYER)], (50, 20))
+        self.image.blit(self.numbers[self.scorekeeper.get_score(Scorekeeper.RIGHT_PLAYER)], (self.rect.width - 50 - 30, 20))
         
     def initialize_numbers(self):
         self.numbers = []
