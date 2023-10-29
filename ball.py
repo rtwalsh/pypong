@@ -35,7 +35,7 @@ class Ball(pygame.sprite.Sprite):
         self.rect.x = self.arena_center[0] - self.size
         self.rect.y = self.arena_center[1] - self.size
 
-        angle = self.to_radians(random.randint(Ball.MIN_ANGLE, Ball.MAX_ANGLE) + random.choice([0, 180]))
+        angle = math.radians(random.randint(Ball.MIN_ANGLE, Ball.MAX_ANGLE) + random.choice([0, 180]))
         self.delta_x = math.cos(angle)
         self.delta_y = math.sin(angle)
 
@@ -60,6 +60,3 @@ class Ball(pygame.sprite.Sprite):
         elif direction == Ball.VERTICAL:
             self.delta_y = -self.delta_y
             self.delta_x += random.random() * 0.2 * random.choice([-1, 1])
-
-    def to_radians(self, degrees):
-        return degrees * math.pi / 180
