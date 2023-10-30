@@ -10,6 +10,7 @@ class Ball(pygame.sprite.Sprite):
     MAX_ANGLE = -MIN_ANGLE
     HORIZONTAL = 0
     VERTICAL = 1
+    BOUNCE_VARIANCE = 0.2
 
     def __init__(self, scorekeeper, size, x_range, y_range):
         super().__init__()
@@ -56,7 +57,7 @@ class Ball(pygame.sprite.Sprite):
     def bounce(self, direction):
         if direction == Ball.HORIZONTAL:
             self.delta_x = -self.delta_x
-            self.delta_y += random.random() * 0.2 * random.choice([-1, 1])
+            self.delta_y += random.random() * Ball.BOUNCE_VARIANCE * random.choice([-1, 1])
         elif direction == Ball.VERTICAL:
             self.delta_y = -self.delta_y
-            self.delta_x += random.random() * 0.2 * random.choice([-1, 1])
+            self.delta_x += random.random() * Ball.BOUNCE_VARIANCE * random.choice([-1, 1])
