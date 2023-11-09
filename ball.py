@@ -12,8 +12,9 @@ class Ball:
 
     def __init__(self, size, court):
         self.size = size
-        self.position = court.get_center()
-        court.set_ball(self)
+        self.court = court
+        self.position = self.court.get_center()
+        self.court.set_ball(self)
 
         angle = math.radians(random.randint(Ball.MIN_ANGLE, Ball.MAX_ANGLE) + random.choice([0, 180]))
         self.delta_x = math.cos(angle)
@@ -28,9 +29,12 @@ class Ball:
 
     def get_new_position(self, bounds):
         new_x = self.get_new_x()
-        if new_x - self.size < 0 or new_x + self.size > bounds[0]:
-            self.bounce(Ball.HORIZONTAL)
-            new_x = self.get_new_x()
+        if new_x - self.size < 0:
+            print("Point for right")
+            new_x = self.court.get_center()[0]
+        elif new_x + self.size > bounds[0]:
+            print("Point for left")
+            new_x = self.court.get_center()[0]
 
         new_y = self.get_new_y()
         if new_y - self.size < 0 or new_y + self.size > bounds[1]:
@@ -50,3 +54,13 @@ class Ball:
             self.delta_x = -self.delta_x
         elif direction == Ball.VERTICAL:
             self.delta_y = -self.delta_y
+
+    def check_for_contact(self, paddles):
+        center = self.position
+        diameter = 2 * self.size
+        ball_rect = pygame.Rect(center[0] - self.size, center[1] - self.size, diameter, diameter)
+        for paddle in paddles:
+            if ball_rect.colliderect(paddle.get_rect()):
+                print("Collision detected between", ball_rect, "and", paddle.get_rect())
+                self.bounce(Ball.HORIZONTAL)
+                break

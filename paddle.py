@@ -16,8 +16,11 @@ class Paddle:
         self.move_direction = 0
         court.set_paddle(self, which)
 
+    def get_rect(self):
+        return pygame.Rect((self.x, self.y), (Paddle.PADDLE_WIDTH, Paddle.PADDLE_HEIGHT))
+    
     def draw(self, surface):
-        pygame.draw.rect(surface, Colors.WHITE, pygame.Rect((self.x, self.y), (self.PADDLE_WIDTH, self.PADDLE_HEIGHT)))
+        pygame.draw.rect(surface, Colors.WHITE, self.get_rect())
 
     def check_for_movement(self, up, down):
         if up:

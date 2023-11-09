@@ -1,5 +1,6 @@
 import pygame
 from colors import *
+#from ball import *
 
 class Court:
 
@@ -33,6 +34,8 @@ class Court:
     def update(self):
         for obj in self.game_objects:
             obj.update(self.surface.get_size())
+
+        self.ball.check_for_contact([self.left_paddle, self.right_paddle])
 
     def draw(self):
         self.surface.fill(Colors.BLACK)
