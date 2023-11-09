@@ -10,15 +10,14 @@ class Paddle:
     PADDLE_WIDTH = 10
     PADDLE_HEIGHT = 100
 
-    def __init__(self, x_pos, y_range):
+    def __init__(self, x_pos, court, which):
         self.x = x_pos - self.PADDLE_WIDTH // 2
-        self.min_y = y_range[0]
-        self.max_y = y_range[1]
-        self.y = (self.max_y - self.min_y - self.PADDLE_HEIGHT) // 2 + self.min_y
+        self.y = court.get_center()[1] - self.PADDLE_HEIGHT // 2
         self.move_direction = 0
+        court.set_paddle(self, which)
 
-    def draw(self, screen):
-        pygame.draw.rect(screen, Colors.WHITE, pygame.Rect((self.x, self.y), (self.PADDLE_WIDTH, self.PADDLE_HEIGHT)))
+    def draw(self, surface):
+        pygame.draw.rect(surface, Colors.WHITE, pygame.Rect((self.x, self.y), (self.PADDLE_WIDTH, self.PADDLE_HEIGHT)))
 
     def check_for_movement(self, up, down):
         if up:
@@ -28,9 +27,9 @@ class Paddle:
         else:
             self.move_direction = 0
 
-    def update(self):
+    def update(self, bounds):
         self.y += self.move_direction * self.MOVE_INCREMENT
-        if self.y + self.PADDLE_HEIGHT > self.max_y:
-            self.y = self.max_y - self.PADDLE_HEIGHT
-        elif self.y < self.min_y:
-            self.y = self.min_y
+        if self.y + self.PADDLE_HEIGHT > bounds[1]:
+            self.y = bounds[1] - self.PADDLE_HEIGHT
+        elif self.y < 0:
+            self.y = 0

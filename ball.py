@@ -10,34 +10,43 @@ class Ball:
     HORIZONTAL = 0
     VERTICAL = 1
 
-    def __init__(self, size, x_range, y_range):
+    def __init__(self, size, court):
         self.size = size
-        self.position = ((x_range[1] - x_range[0]) // 2 + x_range[0], (y_range[1] - y_range[0]) // 2 + y_range[0])
-        self.bounds = (x_range, (y_range[0] + self.size, y_range[1] - self.size))
+        self.position = court.get_center()
+        court.set_ball(self)
 
-        angle = self.to_radians(random.randint(Ball.MIN_ANGLE, Ball.MAX_ANGLE) + random.choice([0, 180]))
+        angle = math.radians(random.randint(Ball.MIN_ANGLE, Ball.MAX_ANGLE) + random.choice([0, 180]))
         self.delta_x = math.cos(angle)
         self.delta_y = math.sin(angle)
         self.speed = 5
 
-    def draw(self, screen):
-        pygame.draw.circle(screen, Colors.WHITE, self.position, self.size)
+    def draw(self, surface):
+        pygame.draw.circle(surface, Colors.WHITE, self.position, self.size)
 
-    def update(self):
-        new_x = self.position[0] + self.speed * self.delta_x
-        new_y = self.position[1] + self.speed * self.delta_y
-        self.position = (new_x, new_y)
-        if new_x < self.bounds[0][0] or new_x > self.bounds[0][1]:
+    def update(self, bounds):
+        self.position = self.get_new_position(bounds)
+
+    def get_new_position(self, bounds):
+        new_x = self.get_new_x()
+        if new_x - self.size < 0 or new_x + self.size > bounds[0]:
             self.bounce(Ball.HORIZONTAL)
+            new_x = self.get_new_x()
 
-        if new_y < self.bounds[1][0] or new_y > self.bounds[1][1]:
+        new_y = self.get_new_y()
+        if new_y - self.size < 0 or new_y + self.size > bounds[1]:
             self.bounce(Ball.VERTICAL)
+            new_y = self.get_new_y()
 
+        return (new_x, new_y)
+
+    def get_new_x(self):
+        return self.position[0] + self.speed * self.delta_x
+
+    def get_new_y(self):
+        return self.position[1] + self.speed * self.delta_y
+    
     def bounce(self, direction):
         if direction == Ball.HORIZONTAL:
             self.delta_x = -self.delta_x
         elif direction == Ball.VERTICAL:
             self.delta_y = -self.delta_y
-
-    def to_radians(self, degrees):
-        return degrees * math.pi / 180
