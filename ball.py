@@ -1,6 +1,7 @@
 import pygame
 import random
 import math
+from scorekeeper import *
 from colors import *
 
 class Ball:
@@ -10,11 +11,12 @@ class Ball:
     HORIZONTAL = 0
     VERTICAL = 1
 
-    def __init__(self, size, court):
+    def __init__(self, size, court, scorekeeper):
         self.size = size
         self.court = court
         self.position = self.court.get_center()
         self.court.set_ball(self)
+        self.scorekeeper = scorekeeper
 
         angle = math.radians(random.randint(Ball.MIN_ANGLE, Ball.MAX_ANGLE) + random.choice([0, 180]))
         self.delta_x = math.cos(angle)
@@ -31,9 +33,11 @@ class Ball:
         new_x = self.get_new_x()
         if new_x - self.size < 0:
             print("Point for right")
+            self.scorekeeper.award_point(Scorekeeper.RIGHT_PLAYER)
             new_x = self.court.get_center()[0]
         elif new_x + self.size > bounds[0]:
             print("Point for left")
+            self.scorekeeper.award_point(Scorekeeper.LEFT_PLAYER)
             new_x = self.court.get_center()[0]
 
         new_y = self.get_new_y()

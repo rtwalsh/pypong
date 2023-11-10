@@ -7,8 +7,10 @@ class Court:
     LEFT_PADDLE = -1
     RIGHT_PADDLE = 1
 
-    def __init__(self, width, height):
+    def __init__(self, left, top, width, height):
         self.surface = pygame.Surface((width, height))
+        self.x = left
+        self.y = top
         self.game_objects = []
 
     def get_width(self):
@@ -37,7 +39,7 @@ class Court:
 
         self.ball.check_for_contact([self.left_paddle, self.right_paddle])
 
-    def draw(self):
+    def draw(self, surface):
         self.surface.fill(Colors.BLACK)
         right = self.surface.get_width() - 1
         bottom = self.surface.get_height() - 1
@@ -47,6 +49,8 @@ class Court:
 
         for obj in self.game_objects:
             obj.draw(self.surface)
+
+        surface.blit(self.surface, (self.x, self.y))
 
     def draw_net(self):
         pos = 0

@@ -1,5 +1,7 @@
 import pygame
 from court import *
+from scorekeeper import *
+from scoreboard import *
 from paddle import *
 from ball import *
 from colors import *
@@ -14,10 +16,12 @@ PADDLE_MARGIN = 20
 size = (WIDTH, HEIGHT)
 screen = pygame.display.set_mode(size)
 
-court = Court(WIDTH, HEIGHT - 150)
+court = Court(0, 100, WIDTH, HEIGHT - 150)
+scorekeeper = Scorekeeper()
+scoreboard = Scoreboard(scorekeeper, 0, 0, WIDTH, 100)
 paddle1 = Paddle(PADDLE_MARGIN, court, Court.LEFT_PADDLE)
 paddle2 = Paddle(court.get_width() - PADDLE_MARGIN, court, Court.RIGHT_PADDLE)
-ball = Ball(BALL_SIZE, court)
+ball = Ball(BALL_SIZE, court, scorekeeper)
 
 done = False
 clock = pygame.time.Clock()
@@ -36,8 +40,10 @@ while not done:
         paddle2.check_for_movement(keys[pygame.K_UP], keys[pygame.K_DOWN])
 
         court.update()
-        court.draw()
-        screen.blit(court.surface, (0, 100))
+        scoreboard.update()
+
+        court.draw(screen)
+        scoreboard.draw(screen)
         pygame.display.flip()
 
         clock.tick(30)

@@ -5,7 +5,7 @@ class Paddle:
 
     UP = -1
     DOWN = 1
-    MOVE_INCREMENT = 2
+    MOVE_INCREMENT = 3
 
     PADDLE_WIDTH = 10
     PADDLE_HEIGHT = 100
