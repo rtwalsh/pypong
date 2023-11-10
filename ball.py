@@ -6,22 +6,27 @@ from colors import *
 
 class Ball:
 
-    MIN_ANGLE = -70
+    MIN_ANGLE = -60
     MAX_ANGLE = -MIN_ANGLE
     HORIZONTAL = 0
     VERTICAL = 1
+    BOUNCE_VARIANCE = 0.2
+    SPEED = 5
 
     def __init__(self, size, court, scorekeeper):
         self.size = size
         self.court = court
-        self.position = self.court.get_center()
         self.court.set_ball(self)
         self.scorekeeper = scorekeeper
 
+        self.initialize_ball()
+
+    def initialize_ball(self):
+        self.position = self.court.get_center()
         angle = math.radians(random.randint(Ball.MIN_ANGLE, Ball.MAX_ANGLE) + random.choice([0, 180]))
         self.delta_x = math.cos(angle)
         self.delta_y = math.sin(angle)
-        self.speed = 5
+        self.speed = Ball.SPEED
 
     def draw(self, surface):
         pygame.draw.circle(surface, Colors.WHITE, self.position, self.size)
@@ -34,12 +39,14 @@ class Ball:
         if new_x - self.size < 0:
             print("Point for right")
             self.scorekeeper.award_point(Scorekeeper.RIGHT_PLAYER)
-            new_x = self.court.get_center()[0]
+            self.initialize_ball()
+            return self.position
         elif new_x + self.size > bounds[0]:
             print("Point for left")
             self.scorekeeper.award_point(Scorekeeper.LEFT_PLAYER)
-            new_x = self.court.get_center()[0]
-
+            self.initialize_ball()
+            return self.position
+        
         new_y = self.get_new_y()
         if new_y - self.size < 0 or new_y + self.size > bounds[1]:
             self.bounce(Ball.VERTICAL)
@@ -56,8 +63,10 @@ class Ball:
     def bounce(self, direction):
         if direction == Ball.HORIZONTAL:
             self.delta_x = -self.delta_x
+            self.delta_y += random.random() * Ball.BOUNCE_VARIANCE * random.choice([-1, 1])
         elif direction == Ball.VERTICAL:
             self.delta_y = -self.delta_y
+            self.delta_x += random.random() * Ball.BOUNCE_VARIANCE * random.choice([-1, 1])
 
     def check_for_contact(self, paddles):
         center = self.position
