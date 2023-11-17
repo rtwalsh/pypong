@@ -1,3 +1,5 @@
+import pygame
+
 class Scorekeeper():
 
     LEFT_PLAYER = 0
@@ -5,8 +7,10 @@ class Scorekeeper():
 
     def __init__(self):
         self.scores = [ 0, 0 ]
+        self.score_sound = pygame.mixer.Sound("./assets/sounds/mixkit-retro-game-notification-212.wav")
 
     def award_point(self, which_player):
+        self.score_sound.play()
         self.scores[which_player] += 1
         print("Score:", self.scores)
 
