@@ -11,7 +11,7 @@ class Ball:
     HORIZONTAL = 0
     VERTICAL = 1
     BOUNCE_VARIANCE = 0.2
-    SPEED = 5
+    INITIAL_SPEED = 5
 
     def __init__(self, size, court, scorekeeper):
         self.size = size
@@ -19,7 +19,7 @@ class Ball:
         self.court.set_ball(self)
         self.scorekeeper = scorekeeper
         self.bounce_sound = pygame.mixer.Sound("./assets/sounds/4359__noisecollector__pongblipf4.wav")
-
+        
         self.initialize_ball()
 
     def initialize_ball(self):
@@ -27,7 +27,8 @@ class Ball:
         angle = math.radians(random.randint(Ball.MIN_ANGLE, Ball.MAX_ANGLE) + random.choice([0, 180]))
         self.delta_x = math.cos(angle)
         self.delta_y = math.sin(angle)
-        self.speed = Ball.SPEED
+        self.speed = Ball.INITIAL_SPEED
+        self.rally_count = 0
 
     def draw(self, surface):
         pygame.draw.circle(surface, Colors.WHITE, self.position, self.size)
@@ -78,4 +79,7 @@ class Ball:
             if ball_rect.colliderect(paddle.get_rect()):
                 print("Collision detected between", ball_rect, "and", paddle.get_rect())
                 self.bounce(Ball.HORIZONTAL)
+                self.rally_count += 1
+                if self.rally_count % 10 == 0:
+                    self.speed += 1
                 break
