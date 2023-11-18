@@ -8,7 +8,7 @@ class Paddle:
     MOVE_INCREMENT = 3
 
     PADDLE_WIDTH = 10
-    PADDLE_HEIGHT = 100
+    PADDLE_HEIGHT = 75
 
     def __init__(self, x_pos, court, which):
         self.x = x_pos - self.PADDLE_WIDTH // 2
