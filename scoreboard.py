@@ -1,5 +1,5 @@
 import pygame
-from colors import *
+import colors
 from scorekeeper import *
 
 class Scoreboard():
@@ -12,7 +12,7 @@ class Scoreboard():
 
     def __init__(self, scorekeeper, left, top, width, height):
         self.surface = pygame.Surface((width, height))
-        self.surface.fill(Colors.BLACK)
+        self.surface.fill(colors.BLACK)
         self.x = left
         self.y = top
 
@@ -30,7 +30,7 @@ class Scoreboard():
         self.numbers = []
         for i in range(0, 10):
             surface = pygame.Surface((Scoreboard.NUMBER_WIDTH, Scoreboard.NUMBER_HEIGHT))
-            surface.fill(Colors.WHITE)
+            surface.fill(colors.WHITE)
             self.numbers.append(surface)
 
         self.initialize_zero(self.numbers[0])
@@ -45,112 +45,112 @@ class Scoreboard():
         self.initialize_nine(self.numbers[9])
 
     def initialize_zero(self, surface):
-        pygame.draw.rect(surface, Colors.BLACK, 
+        pygame.draw.rect(surface, colors.BLACK, 
                          (Scoreboard.NUMBER_STROKE_WIDTH, 
                           Scoreboard.NUMBER_STROKE_WIDTH, 
                           Scoreboard.NUMBER_STROKE_WIDTH, 
                           Scoreboard.NUMBER_HEIGHT - 2 * Scoreboard.NUMBER_STROKE_WIDTH))
 
     def initialize_one(self, surface):
-        pygame.draw.rect(surface, Colors.BLACK, 
+        pygame.draw.rect(surface, colors.BLACK, 
                          (0, 
                           0, 
                           Scoreboard.NUMBER_WIDTH - Scoreboard.NUMBER_STROKE_WIDTH, 
                           Scoreboard.NUMBER_HEIGHT))
 
     def initialize_two(self, surface):
-        pygame.draw.rect(surface, Colors.BLACK,
+        pygame.draw.rect(surface, colors.BLACK,
                           (0,
                            Scoreboard.NUMBER_STROKE_WIDTH,
                            Scoreboard.NUMBER_WIDTH - Scoreboard.NUMBER_STROKE_WIDTH,
                            Scoreboard.NUMBER_STROKE_WIDTH))
 
-        pygame.draw.rect(surface, Colors.BLACK,
+        pygame.draw.rect(surface, colors.BLACK,
                           (Scoreboard.NUMBER_STROKE_WIDTH,
                            Scoreboard.NUMBER_HEIGHT - 2 * Scoreboard.NUMBER_STROKE_WIDTH,
                            Scoreboard.NUMBER_WIDTH,
                            Scoreboard.NUMBER_STROKE_WIDTH))
         
     def initialize_three(self, surface):
-        pygame.draw.rect(surface, Colors.BLACK,
+        pygame.draw.rect(surface, colors.BLACK,
                           (0,
                            Scoreboard.NUMBER_STROKE_WIDTH,
                            Scoreboard.NUMBER_WIDTH - Scoreboard.NUMBER_STROKE_WIDTH,
                            Scoreboard.NUMBER_STROKE_WIDTH))
 
-        pygame.draw.rect(surface, Colors.BLACK,
+        pygame.draw.rect(surface, colors.BLACK,
                           (0,
                            Scoreboard.NUMBER_HEIGHT - 2 * Scoreboard.NUMBER_STROKE_WIDTH,
                            Scoreboard.NUMBER_WIDTH - Scoreboard.NUMBER_STROKE_WIDTH,
                            Scoreboard.NUMBER_STROKE_WIDTH))
         
     def initialize_four(self, surface):
-        pygame.draw.rect(surface, Colors.BLACK,
+        pygame.draw.rect(surface, colors.BLACK,
                          (Scoreboard.NUMBER_STROKE_WIDTH,
                          0,
                          Scoreboard.NUMBER_STROKE_WIDTH,
                          Scoreboard.NUMBER_STROKE_WIDTH * 2))
         
-        pygame.draw.rect(surface, Colors.BLACK,
+        pygame.draw.rect(surface, colors.BLACK,
                          (0,
                           Scoreboard.NUMBER_STROKE_WIDTH * 3,
                           Scoreboard.NUMBER_WIDTH - Scoreboard.NUMBER_STROKE_WIDTH,
                           Scoreboard.NUMBER_HEIGHT))
 
     def initialize_five(self, surface):
-        pygame.draw.rect(surface, Colors.BLACK,
+        pygame.draw.rect(surface, colors.BLACK,
                           (Scoreboard.NUMBER_STROKE_WIDTH,
                            Scoreboard.NUMBER_STROKE_WIDTH,
                            Scoreboard.NUMBER_WIDTH,
                            Scoreboard.NUMBER_STROKE_WIDTH))
 
-        pygame.draw.rect(surface, Colors.BLACK,
+        pygame.draw.rect(surface, colors.BLACK,
                           (0,
                            Scoreboard.NUMBER_HEIGHT - 2 * Scoreboard.NUMBER_STROKE_WIDTH,
                            Scoreboard.NUMBER_WIDTH - Scoreboard.NUMBER_STROKE_WIDTH,
                            Scoreboard.NUMBER_STROKE_WIDTH))
 
     def initialize_six(self, surface):
-        pygame.draw.rect(surface, Colors.BLACK,
+        pygame.draw.rect(surface, colors.BLACK,
                           (Scoreboard.NUMBER_STROKE_WIDTH,
                            Scoreboard.NUMBER_STROKE_WIDTH,
                            Scoreboard.NUMBER_WIDTH,
                            Scoreboard.NUMBER_STROKE_WIDTH))
 
-        pygame.draw.rect(surface, Colors.BLACK,
+        pygame.draw.rect(surface, colors.BLACK,
                           (Scoreboard.NUMBER_STROKE_WIDTH,
                            Scoreboard.NUMBER_HEIGHT - 2 * Scoreboard.NUMBER_STROKE_WIDTH,
                            Scoreboard.NUMBER_STROKE_WIDTH,
                            Scoreboard.NUMBER_STROKE_WIDTH))
 
     def initialize_seven(self, surface):
-        pygame.draw.rect(surface, Colors.BLACK, 
+        pygame.draw.rect(surface, colors.BLACK, 
                          (0, 
                           Scoreboard.NUMBER_STROKE_WIDTH, 
                           2 * Scoreboard.NUMBER_STROKE_WIDTH, 
                           Scoreboard.NUMBER_HEIGHT))
 
     def initialize_eight(self, surface):
-        pygame.draw.rect(surface, Colors.BLACK,
+        pygame.draw.rect(surface, colors.BLACK,
                           (Scoreboard.NUMBER_STROKE_WIDTH,
                            Scoreboard.NUMBER_STROKE_WIDTH,
                            Scoreboard.NUMBER_STROKE_WIDTH,
                            Scoreboard.NUMBER_STROKE_WIDTH))
 
-        pygame.draw.rect(surface, Colors.BLACK,
+        pygame.draw.rect(surface, colors.BLACK,
                           (Scoreboard.NUMBER_STROKE_WIDTH,
                            Scoreboard.NUMBER_HEIGHT - 2 * Scoreboard.NUMBER_STROKE_WIDTH,
                            Scoreboard.NUMBER_STROKE_WIDTH,
                            Scoreboard.NUMBER_STROKE_WIDTH))
 
     def initialize_nine(self, surface):
-        pygame.draw.rect(surface, Colors.BLACK,
+        pygame.draw.rect(surface, colors.BLACK,
                           (Scoreboard.NUMBER_STROKE_WIDTH,
                            Scoreboard.NUMBER_STROKE_WIDTH,
                            Scoreboard.NUMBER_STROKE_WIDTH,
                            Scoreboard.NUMBER_STROKE_WIDTH))
 
-        pygame.draw.rect(surface, Colors.BLACK,
+        pygame.draw.rect(surface, colors.BLACK,
                           (0,
                            Scoreboard.NUMBER_HEIGHT - 2 * Scoreboard.NUMBER_STROKE_WIDTH,
                            Scoreboard.NUMBER_STROKE_WIDTH * 2,

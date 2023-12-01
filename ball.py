@@ -2,7 +2,7 @@ import pygame
 import random
 import math
 from scorekeeper import *
-from colors import *
+import colors
 
 class Ball:
 
@@ -31,7 +31,7 @@ class Ball:
         self.rally_count = 0
 
     def draw(self, surface):
-        pygame.draw.circle(surface, Colors.WHITE, self.position, self.size)
+        pygame.draw.circle(surface, colors.WHITE, self.position, self.size)
 
     def update(self, bounds):
         self.position = self.get_new_position(bounds)

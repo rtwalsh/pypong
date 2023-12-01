@@ -1,5 +1,5 @@
 import pygame
-from colors import *
+import colors
 
 class Paddle:
 
@@ -20,7 +20,7 @@ class Paddle:
         return pygame.Rect((self.x, self.y), (Paddle.PADDLE_WIDTH, Paddle.PADDLE_HEIGHT))
     
     def draw(self, surface):
-        pygame.draw.rect(surface, Colors.WHITE, self.get_rect())
+        pygame.draw.rect(surface, colors.WHITE, self.get_rect())
 
     def check_for_movement(self, up, down):
         if up:

@@ -1,5 +1,5 @@
 import pygame
-from colors import *
+import colors
 #from ball import *
 
 class Court:
@@ -40,11 +40,11 @@ class Court:
         self.ball.check_for_contact([self.left_paddle, self.right_paddle])
 
     def draw(self, surface):
-        self.surface.fill(Colors.BLACK)
+        self.surface.fill(colors.BLACK)
         right = self.surface.get_width() - 1
         bottom = self.surface.get_height() - 1
-        pygame.draw.line(self.surface, Colors.WHITE, (0, 0), (right, 0))
-        pygame.draw.line(self.surface, Colors.WHITE, (0, bottom), (right, bottom))
+        pygame.draw.line(self.surface, colors.WHITE, (0, 0), (right, 0))
+        pygame.draw.line(self.surface, colors.WHITE, (0, bottom), (right, bottom))
         self.draw_net()
 
         for obj in self.game_objects:
@@ -54,10 +54,10 @@ class Court:
 
     def draw_net(self):
         pos = 0
-        on = False
+        center = self.surface.get_rect().centerx
+        pen_down = False
         while pos < self.surface.get_height():
-            if on:
-                center = self.get_center()[0]
-                pygame.draw.line(self.surface, Colors.WHITE, (center, pos), (center, pos + 10))
+            if pen_down:
+                pygame.draw.line(self.surface, colors.WHITE, (center, pos), (center, pos + 10))
             pos += 10
-            on = not on
+            pen_down = not pen_down
