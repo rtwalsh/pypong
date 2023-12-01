@@ -1,4 +1,5 @@
 import pygame
+from court import Court
 import colors
 
 class Paddle:
@@ -10,9 +11,9 @@ class Paddle:
     PADDLE_WIDTH = 10
     PADDLE_HEIGHT = 75
 
-    def __init__(self, x_pos, court, which):
-        self.x = x_pos - self.PADDLE_WIDTH // 2
-        self.y = court.get_center()[1] - self.PADDLE_HEIGHT // 2
+    def __init__(self, court, which):
+        self.x = court.get_paddle_x(which) - self.PADDLE_WIDTH // 2
+        self.y = court.get_paddle_y() - self.PADDLE_HEIGHT // 2
         self.move_direction = 0
         court.set_paddle(self, which)
 

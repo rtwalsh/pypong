@@ -6,6 +6,7 @@ class Court:
 
     LEFT_PADDLE = -1
     RIGHT_PADDLE = 1
+    PADDLE_MARGIN = 20
 
     def __init__(self, left, top, width, height):
         self.surface = pygame.Surface((width, height))
@@ -13,12 +14,22 @@ class Court:
         self.y = top
         self.game_objects = []
 
-    def get_width(self):
-        return self.surface.get_width()
+    #def get_width(self):
+    #    return self.surface.get_width()
     
     def get_center(self):
         return self.surface.get_rect().center
     
+    def get_paddle_x(self, which):
+        if (which == Court.LEFT_PADDLE):
+            paddle_x = Court.PADDLE_MARGIN
+        else:
+            paddle_x = self.surface.get_width() - Court.PADDLE_MARGIN
+        return paddle_x
+    
+    def get_paddle_y(self):
+        return self.surface.get_rect().centery
+
     def set_ball(self, ball):
         self.ball = ball
         self.add_object(ball)
