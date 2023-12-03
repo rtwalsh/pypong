@@ -6,24 +6,24 @@ class Paddle:
 
     UP = -1
     DOWN = 1
-    MOVE_INCREMENT = 3
+    MOVE_AMOUNT = 3
 
-    PADDLE_WIDTH = 10
-    PADDLE_HEIGHT = 75
+    WIDTH = 10
+    HEIGHT = 75
 
     def __init__(self, court, which):
-        self.x = court.get_paddle_x(which) - self.PADDLE_WIDTH // 2
-        self.y = court.get_paddle_y() - self.PADDLE_HEIGHT // 2
+        self.x = court.get_paddle_x(which) - Paddle.WIDTH // 2
+        self.y = court.get_paddle_y() - Paddle.HEIGHT // 2
         self.move_direction = 0
-        court.set_paddle(self, which)
+        court.add_object(self)
 
     def get_rect(self):
-        return pygame.Rect((self.x, self.y), (Paddle.PADDLE_WIDTH, Paddle.PADDLE_HEIGHT))
+        return pygame.Rect((self.x, self.y), (Paddle.WIDTH, Paddle.HEIGHT))
     
     def draw(self, surface):
         pygame.draw.rect(surface, colors.WHITE, self.get_rect())
 
-    def check_for_movement(self, up, down):
+    def move(self, up, down):
         if up:
             self.move_direction = Paddle.UP
         elif down:
@@ -32,8 +32,8 @@ class Paddle:
             self.move_direction = 0
 
     def update(self, bounds):
-        self.y += self.move_direction * self.MOVE_INCREMENT
-        if self.y + self.PADDLE_HEIGHT > bounds[1]:
-            self.y = bounds[1] - self.PADDLE_HEIGHT
+        self.y += self.move_direction * self.MOVE_AMOUNT
+        if self.y + Paddle.HEIGHT > bounds[1]:
+            self.y = bounds[1] - Paddle.HEIGHT
         elif self.y < 0:
             self.y = 0

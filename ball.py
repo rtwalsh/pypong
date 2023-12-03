@@ -71,13 +71,13 @@ class Ball:
             self.delta_y = -self.delta_y
             self.delta_x += random.random() * Ball.BOUNCE_VARIANCE * random.choice([-1, 1])
 
-    def check_for_contact(self, paddles):
+    def check_for_contact(self, objects):
         center = self.position
         diameter = 2 * self.size
         ball_rect = pygame.Rect(center[0] - self.size, center[1] - self.size, diameter, diameter)
-        for paddle in paddles:
-            if ball_rect.colliderect(paddle.get_rect()):
-                print("Collision detected between", ball_rect, "and", paddle.get_rect())
+        for object in objects:
+            if object != self and ball_rect.colliderect(object.get_rect()):
+                print("Collision detected between", ball_rect, "and", object.get_rect())
                 self.bounce(Ball.HORIZONTAL)
                 self.rally_count += 1
                 if self.rally_count % 10 == 0:

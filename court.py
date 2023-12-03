@@ -1,6 +1,5 @@
 import pygame
 import colors
-#from ball import *
 
 class Court:
 
@@ -14,9 +13,6 @@ class Court:
         self.y = top
         self.game_objects = []
 
-    #def get_width(self):
-    #    return self.surface.get_width()
-    
     def get_center(self):
         return self.surface.get_rect().center
     
@@ -34,13 +30,6 @@ class Court:
         self.ball = ball
         self.add_object(ball)
 
-    def set_paddle(self, paddle, which):
-        if which == Court.LEFT_PADDLE:
-            self.left_paddle = paddle
-        else:
-            self.right_paddle = paddle
-        self.add_object(paddle)
-
     def add_object(self, obj):
         self.game_objects.append(obj)
 
@@ -48,7 +37,7 @@ class Court:
         for obj in self.game_objects:
             obj.update(self.surface.get_size())
 
-        self.ball.check_for_contact([self.left_paddle, self.right_paddle])
+        self.ball.check_for_contact(self.game_objects)
 
     def draw(self, surface):
         self.surface.fill(colors.BLACK)

@@ -24,8 +24,8 @@ screen = pygame.display.set_mode(size)
 court = Court(0, SCOREBOARD_HEIGHT, WIDTH, HEIGHT - SCOREBOARD_HEIGHT - BOTTOM_PANEL_HEIGHT)
 scorekeeper = Scorekeeper()
 scoreboard = Scoreboard(scorekeeper, 0, 0, WIDTH, SCOREBOARD_HEIGHT)
-paddle1 = Paddle(court, Court.LEFT_PADDLE)
-paddle2 = Paddle(court, Court.RIGHT_PADDLE)
+left_paddle = Paddle(court, Court.LEFT_PADDLE)
+right_paddle = Paddle(court, Court.RIGHT_PADDLE)
 ball = Ball(BALL_SIZE, court, scorekeeper)
 
 done = False
@@ -41,8 +41,8 @@ while not done:
         screen.fill(colors.BLACK)
 
         keys = pygame.key.get_pressed()
-        paddle1.check_for_movement(keys[pygame.K_w], keys[pygame.K_s])
-        paddle2.check_for_movement(keys[pygame.K_UP], keys[pygame.K_DOWN])
+        left_paddle.move(keys[pygame.K_w], keys[pygame.K_s])
+        right_paddle.move(keys[pygame.K_UP], keys[pygame.K_DOWN])
 
         court.update()
         scoreboard.update()
