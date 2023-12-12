@@ -4,31 +4,34 @@ from scorekeeper import *
 
 class Scoreboard():
 
-    NUMBER_TOP = 20
+    TOP_MARGIN = 20
+    SIDE_MARGIN = 50
     NUMBER_WIDTH = 30
     NUMBER_HEIGHT = 50
     NUMBER_STROKE_WIDTH = 10
-    NUMBER_MARGIN = 50
 
     def __init__(self, scorekeeper, left, top, width, height):
         self.surface = pygame.Surface((width, height))
-        self.surface.fill(colors.BLACK)
         self.x = left
         self.y = top
-
-        self.initialize_numbers()
         self.scorekeeper = scorekeeper
 
+        self.initialize_numbers()
+
     def update(self):
-        self.surface.blit(self.numbers[self.scorekeeper.get_score(Scorekeeper.LEFT_PLAYER)], (self.x + Scoreboard.NUMBER_MARGIN, self.y + Scoreboard.NUMBER_TOP))
-        self.surface.blit(self.numbers[self.scorekeeper.get_score(Scorekeeper.RIGHT_PLAYER)], (self.x + self.surface.get_width() - Scoreboard.NUMBER_MARGIN - Scoreboard.NUMBER_WIDTH, self.y + Scoreboard.NUMBER_TOP))
-        
+        pass
+
     def draw(self, surface):
+        self.surface.fill(colors.BLACK)
+        left_score = self.scorekeeper.get_score(Scorekeeper.LEFT_PLAYER)
+        right_score = self.scorekeeper.get_score(Scorekeeper.RIGHT_PLAYER)
+        self.surface.blit(self.numbers[left_score], (self.x + Scoreboard.SIDE_MARGIN, self.y + Scoreboard.TOP_MARGIN))
+        self.surface.blit(self.numbers[right_score], (self.x + self.surface.get_width() - Scoreboard.SIDE_MARGIN - Scoreboard.NUMBER_WIDTH, self.y + Scoreboard.TOP_MARGIN))
         surface.blit(self.surface, (self.x, self.y))
         
     def initialize_numbers(self):
         self.numbers = []
-        for i in range(0, 10):
+        for _ in range(0, 10):
             surface = pygame.Surface((Scoreboard.NUMBER_WIDTH, Scoreboard.NUMBER_HEIGHT))
             surface.fill(colors.WHITE)
             self.numbers.append(surface)

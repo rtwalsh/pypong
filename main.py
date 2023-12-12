@@ -16,8 +16,6 @@ BOTTOM_PANEL_HEIGHT = 50
 
 FRAMES_PER_SECOND = 60
 
-BALL_SIZE = 5
-
 size = (WIDTH, HEIGHT)
 screen = pygame.display.set_mode(size)
 
@@ -26,7 +24,7 @@ scorekeeper = Scorekeeper()
 scoreboard = Scoreboard(scorekeeper, 0, 0, WIDTH, SCOREBOARD_HEIGHT)
 left_paddle = Paddle(court, Court.LEFT_PADDLE)
 right_paddle = Paddle(court, Court.RIGHT_PADDLE)
-ball = Ball(BALL_SIZE, court, scorekeeper)
+ball = Ball(court, scorekeeper)
 
 done = False
 clock = pygame.time.Clock()

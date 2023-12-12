@@ -1,5 +1,4 @@
 import pygame
-from court import Court
 import colors
 
 class Paddle:
@@ -37,3 +36,15 @@ class Paddle:
             self.y = bounds[1] - Paddle.HEIGHT
         elif self.y < 0:
             self.y = 0
+
+    def is_touching(self, rect, h_bounce_value, v_bounce_value):
+        front_face = (self.x, self.y, self.x, self.y + Paddle.HEIGHT)
+        if rect.clipline(front_face):
+            return h_bounce_value
+        
+        top_edge = (self.x, self.y, self.x + Paddle.WIDTH, self.y)
+        bottom_edge = (self.x, self.y + Paddle.HEIGHT, self.x + Paddle.WIDTH, self.y + Paddle.HEIGHT)
+        if rect.clipline(top_edge) or rect.clipline(bottom_edge):
+            return v_bounce_value
+        
+        return None
