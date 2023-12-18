@@ -47,10 +47,6 @@ class Ball:
             self.initialize_ball()
             return
 
-        # if new_x < 0 or new_x > bounds[0]:
-        #     self.bounce(Ball.HORIZONTAL)
-        #     new_x = self.get_new_x()
-
         new_y = self.get_new_y()
         if new_y - self.size < 0 or new_y + self.size > bounds[1]:
             self.bounce(Ball.VERTICAL)

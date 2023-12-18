@@ -52,7 +52,7 @@ class Scoreboard():
                          (Scoreboard.NUMBER_STROKE_WIDTH, 
                           Scoreboard.NUMBER_STROKE_WIDTH, 
                           Scoreboard.NUMBER_STROKE_WIDTH, 
-                          Scoreboard.NUMBER_HEIGHT - 2 * Scoreboard.NUMBER_STROKE_WIDTH))
+                          Scoreboard.NUMBER_STROKE_WIDTH * 3))
 
     def initialize_one(self, surface):
         pygame.draw.rect(surface, colors.BLACK, 
