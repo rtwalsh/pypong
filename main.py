@@ -1,4 +1,5 @@
 import pygame
+import time
 from court import *
 from scorekeeper import *
 from scoreboard import *
@@ -15,6 +16,7 @@ SCOREBOARD_HEIGHT = 100
 BOTTOM_PANEL_HEIGHT = 50
 
 FRAMES_PER_SECOND = 60
+WINNING_SCORE = 9
 
 size = (WIDTH, HEIGHT)
 screen = pygame.display.set_mode(size)
@@ -35,6 +37,11 @@ while not done:
         if event.type == pygame.QUIT:
             done = True
 
+    if scorekeeper.get_score(Scorekeeper.LEFT_PLAYER) == WINNING_SCORE or scorekeeper.get_score(Scorekeeper.RIGHT_PLAYER) == WINNING_SCORE:
+        pygame.mixer.Sound("assets\sounds\mixkit-arcade-retro-game-over-213.wav").play()
+        time.sleep(2)
+        done = True
+
     if not done:
         screen.fill(colors.BLACK)
 
@@ -51,4 +58,6 @@ while not done:
 
         clock.tick(FRAMES_PER_SECOND)
 
+
 pygame.quit()
+

@@ -13,6 +13,7 @@ class Ball:
     VERTICAL = 1
     BOUNCE_VARIANCE = 0.2
     INITIAL_SPEED = 5
+    RALLY_THRESHOLD = 10
 
     def __init__(self, court, scorekeeper):
         self.size = Ball.SIZE
@@ -61,7 +62,7 @@ class Ball:
         return self.position[1] + self.speed * self.delta_y
     
     def bounce(self, direction):
-        #self.bounce_sound.play()
+        self.bounce_sound.play()
         if direction == Ball.HORIZONTAL:
             self.delta_x = -self.delta_x
             self.delta_y += random.random() * Ball.BOUNCE_VARIANCE * random.choice([-1, 1])
@@ -80,6 +81,6 @@ class Ball:
                     print("Collision detected between", ball_rect, "and", object.get_rect())
                     self.bounce(bounce_direction) #Ball.HORIZONTAL)
                     self.rally_count += 1
-                    if self.rally_count % 10 == 0:
-                        self.speed += 1
+                    if self.rally_count % Ball.RALLY_THRESHOLD == 0:
+                        self.speed += 1 / self.rally_count
                     break
